@@ -1,0 +1,70 @@
+# docker-compose.yml
+services:
+  # Servizio Backend (Laravel)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+    container_name: pw2_backend
+    user: "${UID}:${GID}"
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - pw2_network
+    depends_on:
+      - db
+
+  # Servizio Frontend (Angular)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
+    container_name: pw2_frontend
+    user: "${UID}:${GID}"
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      # - /app/node_modules
+    # Comando temporaneo per tenere il container acceso durante l'installazione
+    # command: tail -f /dev/null
+    networks:
+      - pw2_network
+
+  # Servizio Web Server (Nginx)
+  webserver:
+    image: nginx:alpine
+    container_name: pw2_webserver
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - pw2_network
+
+  # Servizio Database (MySQL)
+  db:
+    image: mysql:8.0
+    container_name: pw2_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: pw2_db
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_USER: pw2_user
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - pw2_network
+
+volumes:
+  db_data:
+
+networks:
+  pw2_network:
+    driver: bridge
