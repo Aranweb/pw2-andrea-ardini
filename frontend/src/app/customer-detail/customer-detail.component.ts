@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer.model';
 
@@ -15,7 +16,8 @@ export class CustomerDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Location
   ) {}
 
   ngOnInit(): void {
@@ -27,5 +29,9 @@ export class CustomerDetailComponent implements OnInit {
         console.log('Dati cliente ricevuti:', this.customer);
       });
     }
+  }
+
+  goBackToList(): void {
+    this.router.back();
   }
 }
