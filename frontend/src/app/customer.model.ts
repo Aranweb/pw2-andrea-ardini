@@ -1,3 +1,4 @@
+import { Order } from "./order.model";
 /**
  * Interfaccia rappresentante Customer
  */
@@ -7,4 +8,5 @@ export interface Customer {
     image: string;
     address: string;
     email: string;
+    orders: Order[];
 }

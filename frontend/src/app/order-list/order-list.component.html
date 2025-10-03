@@ -1,1 +1,18 @@
-<p>order-list works!</p>
+<div *ngIf="orders && orders.length > 0; else noOrders">
+  <ul class="list-group">
+    <li *ngFor="let order of orders" class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Ordine #{{ order.order_number }}</h5>
+        <small>{{ order.order_data | date: 'dd/MM/yyyy' }}</small>
+      </div>
+      <p class="mb-1">{{ order.description }}</p>
+      <strong class="text-success">Totale: {{ order.total | currency:'EUR' }}</strong>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noOrders>
+  <div class="alert alert-info" role="alert">
+    Questo cliente non ha ancora effettuato ordini.
+  </div>
+</ng-template>

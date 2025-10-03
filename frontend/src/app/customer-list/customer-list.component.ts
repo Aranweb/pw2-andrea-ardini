@@ -26,10 +26,8 @@ export class CustomerListComponent implements OnInit {
         next: (customers) => {
           this.customerList = customers;
           this.isLoading = false;
-          console.log('Clienti caricati!', this.customerList);
         },
         error: (err) => {
-          console.error('Errore nel caricamento dei clienti:', err);
           this.error = 'Impossibile caricare i dati. Riprova più tardi.';
           this.isLoading = false;
         }

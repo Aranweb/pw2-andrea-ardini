@@ -13,17 +13,10 @@ class CustomerController extends Controller
         return response()->json(Customer::all(), 200);
     }
 
-    // Lettura di un determinato Customer
+    // Lettura di un determinato Customer con i suoi ordini
     public function show(Customer $customer)
     {
-        return response()->json($customer, 200);
-    }
-
-    // Ritorna un customer specifico con i suoi ordini
-    public function customerWithOrder(Customer $customer)
-    {
-        $orders = $customer->orders;
-        return response()->json($orders, 200);
-        // return $customer->load('orders');
+        // Utilizzo load per caricare la relazione 'orders' dentro l'oggetto $customer
+        return $customer->load('orders');
     }
 }

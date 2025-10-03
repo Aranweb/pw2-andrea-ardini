@@ -1,1 +1,21 @@
-<p>customer-detail works!</p>
+<div *ngIf="customer" class="container mt-4">
+
+  <div class="card shadow-sm">
+    <div class="card-body d-flex align-items-center">
+      <img [src]="imgUrl + customer.image" class="rounded-circle me-4" alt="{{customer.name}}" width="150" height="150">
+      <div>
+        <h1 class="card-title">{{ customer.name }}</h1>
+        <p class="card-text text-muted">{{ customer.email }}</p>
+        <p class="card-text">{{ customer.address }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h2>Ordini Effettuati</h2>
+    
+    <app-order-list [orders]="customer.orders"></app-order-list>
+
+  </div>
+
+</div>
