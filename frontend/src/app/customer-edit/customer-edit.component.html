@@ -1,0 +1,26 @@
+<div *ngIf="customer" class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h3>Modifica: {{ customer.name }}</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveCustomer()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="customer.name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="customer.email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Indirizzo</label>
+          <input type="text" class="form-control" id="address" [(ngModel)]="customer.address" name="address" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+        <a [routerLink]="''" class="btn btn-secondary ms-2">Annulla</a>
+      </form>
+    </div>
+  </div>
+</div>
