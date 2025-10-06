@@ -10,7 +10,9 @@ import { CustomerService } from '../customer.service';
   styleUrl: './customer-edit.component.css'
 })
 export class CustomerEditComponent {
-  customer: Customer | null = null;
+  customer: Customer = {} as Customer;
+  isEditMode: boolean = false;
+  selectedFile: File | null = null;
   
   constructor(
     private route: ActivatedRoute,
@@ -21,17 +23,34 @@ export class CustomerEditComponent {
   ngOnInit(): void {
     const customerID = this.route.snapshot.paramMap.get('id');
     if (customerID) {
+      this.isEditMode = true;
       this.customerService.getCustomerById(+customerID).subscribe(data=> {
         this.customer = data;
       })
     }
   }
-  
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0] ?? null;
+  }
+
   saveCustomer(): void {
-    if (this.customer) {
-      // 3. Chiama il servizio per inviare i dati aggiornati al backend
-      this.customerService.updateCustomer(this.customer).subscribe(() => {
-        // 4. A salvataggio completato, torna alla lista clienti
+    // Usiamo FormData per inviare sia dati che file
+    const formData = new FormData();
+    formData.append('name', this.customer.name);
+    formData.append('email', this.customer.email);
+    formData.append('address', this.customer.address);
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+    }
+
+    if (this.isEditMode) {
+      this.customerService.updateCustomer(this.customer.id, formData).subscribe(() => {
+        this.router.navigate(['']);
+      });
+    } else {
+      this.customerService.createCustomer(formData).subscribe(() => {
         this.router.navigate(['']);
       });
     }

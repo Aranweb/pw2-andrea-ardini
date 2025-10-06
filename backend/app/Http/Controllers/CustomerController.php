@@ -27,19 +27,49 @@ class CustomerController extends Controller
         // Validazione dei campi in creazione
         $validated = $request->validate([
             'name' => ['required', 'string'],
-            'image' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'address' => ['required', 'string'],
             'email' => ['required', 'string', 'unique:customers,email'],
         ],[
             'name.required' => 'Il campo nome è obbligatorio',
+            'image.image' => 'Il file caricato deve essere un\'immagine',
+            'image.mimes' => 'Il file caricato deve essere in uno di questi formati: jpeg, png, jpg, gif',
+            'image.max' => 'Il file caricato non deve superare i 2MB',
             'address.required' => 'Il campo indirizzo è obbligatorio',
             'email.required' => 'Il campo mail è obbligatorio',
             'email.unique' => 'Il campo mail è già presente in archivio',
         ]);
 
+        if ($request->hasFile('image')) {
+            // Salvo il file immagine nella cartella 'public/customers' e ottengo il percorso
+            $path = $request->file('image')->store('customers', 'public');
+            $validated['image'] = $path;
+        }
+
         $customer = Customer::create($validated);
 
         return response()->json($customer, 201);
+    }
+
+    public function updateWithFile(Request $request, Customer $customer)
+    {
+        $validated = $request->validate([
+            'name'    => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'email'   => 'required|email|unique:customers,email,' . $customer->id,
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Qui dovresti anche cancellare la vecchia immagine se esiste
+            // Storage::disk('public')->delete($customer->image);
+
+            $path = $request->file('image')->store('customers', 'public');
+            $validated['image'] = $path;
+        }
+
+        $customer->update($validated);
+        return response()->json($customer);
     }
 
     // Aggiornamento entità Cliente

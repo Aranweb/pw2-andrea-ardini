@@ -39,7 +39,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   newCustomer() {
-    this.router.navigate(['/customers/edit']);
+    this.router.navigate(['/customers/new']);
   }
 
   editCustomer(customer: Customer, event: MouseEvent): void {
@@ -57,12 +57,11 @@ export class CustomerListComponent implements OnInit {
 
     // Chiedi conferma prima di procedere
     if (confirm(`Sei sicuro di voler eliminare ${customer.name}?`)) {
-      console.log('Elimina cliente:', customer);
       // Qui chiamerai il tuo servizio per eliminare il cliente dal database
-      // this.customerService.deleteCustomer(customer.id).subscribe(() => {
-      //   // Dopo l'eliminazione, aggiorna la lista per riflettere il cambiamento
-      //   this.customerList = this.customerList.filter(c => c.id !== customer.id);
-      // });
+      this.customerService.deleteCustomer(customer.id).subscribe(() => {
+      // Dopo l'eliminazione, aggiorna la lista per riflettere il cambiamento
+      this.customerList = this.customerList.filter(c => c.id !== customer.id);
+      });
     }
   }
 }

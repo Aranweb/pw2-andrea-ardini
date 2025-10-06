@@ -28,8 +28,17 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.apiUrl}/customers/${id}`);
   }
 
-  updateCustomer(customer: Customer): Observable<Customer> {
-    const url = `${this.apiUrl}/customers/${customer.id}`;
-    return this.http.put<Customer>(url, customer);
+  updateCustomer(id: number, formData: FormData): Observable<Customer> {
+    // Usiamo il nuovo URL con POST per gestire l'upload del file
+    return this.http.post<Customer>(`${this.apiUrl}/customers/${id}`, formData);
+  }
+
+  // Metodo per CREARE un nuovo cliente (richiesta POST)
+  createCustomer(formData: FormData): Observable<Customer> {
+    return this.http.post<Customer>(`${this.apiUrl}/customers`, formData);
+  }
+
+  deleteCustomer(id: Number): Observable<Customer> {
+    return this.http.delete<Customer>(`${this.apiUrl}/customers/${id}`);
   }
 }

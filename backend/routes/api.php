@@ -11,4 +11,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('customers', CustomerController::class);
+Route::post('/customers/{customer}', [CustomerController::class, 'updateWithFile']);
 Route::apiResource('orders', OrderController::class);
