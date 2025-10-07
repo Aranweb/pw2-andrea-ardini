@@ -11,12 +11,11 @@ import { Router } from '@angular/router';
 })
 export class CustomerListComponent implements OnInit {
   customerList: Customer[] = [];
-  imgUrl: string = 'http://localhost:8080/storage/';
   isLoading: boolean = true;
   error: string | null = null;
 
   constructor(
-    private customerService: CustomerService,
+    public customerService: CustomerService, // public per la gestione dello storageUrl
     private router: Router
   ) {}
 

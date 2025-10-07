@@ -1,27 +1,19 @@
 <div class="container">
   <div class="sticky-top bg-white pt-2">
     <div class="d-flex justify-content-between align-items-center">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb mb-0">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item">
             <a routerLink="/" class="text-decoration-none text-success-emphasis fs-2">CLIENTI</a>
           </li>
-            <li
-              class="breadcrumb-item active text-success fs-2"
-              aria-current="page"
-              *ngIf="!isEditMode"
-            >
-              Nuovo
-            </li>
-            <li
-              class="breadcrumb-item active text-success fs-2"
-              aria-current="page"
-              *ngIf="isEditMode"
-            >
-              Modifica
-            </li>
-          </ol>
-        </nav>
+          <li class="breadcrumb-item active text-success fs-2" aria-current="page" *ngIf="!isEditMode">
+            Nuovo
+          </li>
+          <li class="breadcrumb-item active text-success fs-2" aria-current="page" *ngIf="isEditMode">
+            Modifica
+          </li>
+        </ol>
+      </nav>
       <div>
         <a routerLink="" class="btn btn-success" (click)="saveCustomer()">
           <i class="fas fa-check me-2"></i>Salva
@@ -32,81 +24,60 @@
       </div>
     </div>
   </div>
+
   <section class="mt-4">
 
-      @if (customer){
-          <div class="card shadow-sm">
-              <div class="card-header">
-                  <h3 *ngIf="isEditMode">Modifica: {{ customer.name }}</h3>
-                  <h3 *ngIf="!isEditMode">Crea Nuovo Cliente</h3>
-                </div>
-                <div class="card-body">
-                    <form (ngSubmit)="saveCustomer()">
-                        <div *ngIf="isEditMode && customer.image" class="mb-3">
-                            <img
-                            [src]="'http://localhost:8080/storage/' + customer.image"
-                            class="rounded"
-                            width="150"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label" *ngIf="isEditMode"
-                            >Aggiorna immagine cliente</label
-                            >
-                            <label for="image" class="form-label" *ngIf="!isEditMode"
-                            >Carica immagine cliente</label
-                            >
-                            <input
-                            class="form-control"
-            type="file"
-            id="image"
-            (change)="onFileSelected($event)"
-            />
-        </div>
-        <hr />
-        <div class="mb-3">
+    @if (customer){
+    <h2 class="h4 bg-success text-white text-center p-2 rounded-top mb-0" *ngIf="isEditMode">
+      {{ customer.name }}
+    </h2>
+    <h2 class="h4 bg-success text-white text-center p-2 rounded-top mb-0" *ngIf="!isEditMode">
+      Nuovo Cliente
+    </h2>
+    <div class="card shadow-sm">
+
+      <div class="card-body">
+        <form (ngSubmit)="saveCustomer()">
+          <div class="row">
+            <div class="col text-center">
+              <div *ngIf="isEditMode && customer.image" class="mb-3">
+                <img [src]="customerService.storageUrl + customer.image" class="rounded" width="150" />
+                <label for="image" class="form-label" *ngIf="isEditMode">Aggiorna immagine cliente</label>
+              </div>
+              <div *ngIf="!isEditMode || !customer.image" class="mb-3">
+                <img src="placeholder-user.png" class="rounded" width="150" />
+                <label for="image" class="form-label" *ngIf="!isEditMode">Carica immagine cliente</label>
+              </div>
+              
+            </div>
+          </div>
+          <div class="mb-3">
+            <input class="form-control" type="file" id="image" (change)="onFileSelected($event)" />
+          </div>
+          <hr />
+          <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
-            <input
-            type="text"
-            class="form-control"
-            id="name"
-            [(ngModel)]="customer.name"
-            name="name"
-            required
-            />
-        </div>
-        <div class="mb-3">
+            <input type="text" class="form-control" id="name" [(ngModel)]="customer.name" name="name" required />
+          </div>
+          <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input
-            type="email"
-            class="form-control"
-            id="email"
-            [(ngModel)]="customer.email"
-            name="email"
-            required
-            />
-        </div>
-        <div class="mb-3">
+            <input type="email" class="form-control" id="email" [(ngModel)]="customer.email" name="email" required />
+          </div>
+          <div class="mb-3">
             <label for="address" class="form-label">Indirizzo</label>
-            <input
-            type="text"
-            class="form-control"
-            id="address"
-            [(ngModel)]="customer.address"
-            name="address"
-            required
-            />
-        </div>
-        <hr />
-        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-        <a [routerLink]="''" class="btn btn-secondary ms-2">Annulla</a>
-    </form>
-</div>
-</div>
-} @else {
-    <div class="message message-alert">
-        Creazione/modifica cliente non disponibile
+            <input type="text" class="form-control" id="address" [(ngModel)]="customer.address" name="address"
+              required />
+          </div>
+          <hr />
+          <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+          <a [routerLink]="''" class="btn btn-secondary ms-2">Annulla</a>
+        </form>
+      </div>
     </div>
-}
-</section>
+    } @else {
+    <div class="message message-alert">
+      Creazione/modifica cliente non disponibile
+    </div>
+    }
+  </section>
 </div>

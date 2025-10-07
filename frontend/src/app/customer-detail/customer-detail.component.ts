@@ -12,11 +12,10 @@ import { Customer } from '../customer.model';
 })
 export class CustomerDetailComponent implements OnInit {
   customer: Customer | null = null;
-  imgUrl: string = 'http://localhost:8080/storage/';
 
   constructor(
     private route: ActivatedRoute,
-    private customerService: CustomerService,
+    public customerService: CustomerService, // public per la gestione dello storageUrl
     private router: Location
   ) {}
 

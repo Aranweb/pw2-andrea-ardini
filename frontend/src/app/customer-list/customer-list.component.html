@@ -31,7 +31,7 @@
             <tr *ngFor="let c of customerList" (click)="showCustomerDetail(c)" class="table-light align-middle"
             style="cursor: pointer;">
             <td>
-              <img [src]="imgUrl + c.image" class="rounded-circle me-3" alt="{{ c.name }}" width="50" height="50" />
+              <img [src]="customerService.storageUrl + c.image" class="rounded-circle me-3" alt="{{ c.name }}" width="50" height="50" />
             </td>
             <td>
               {{ c.id }}

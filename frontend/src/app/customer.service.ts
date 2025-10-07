@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment.development';
 import { Observable } from 'rxjs';
 import { Customer } from './customer.model';
 
@@ -7,7 +8,8 @@ import { Customer } from './customer.model';
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = environment.apiUrl;
+  public storageUrl = environment.storageUrl;
   
   constructor(private http: HttpClient) { }
 

@@ -17,7 +17,7 @@ export class CustomerEditComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private customerService: CustomerService
+    public customerService: CustomerService, // public per la gestione dello storageUrl
   ) {}
 
   ngOnInit(): void {
