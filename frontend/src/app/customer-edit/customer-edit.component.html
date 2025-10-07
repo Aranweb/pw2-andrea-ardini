@@ -15,9 +15,9 @@
         </ol>
       </nav>
       <div>
-        <a routerLink="" class="btn btn-success" (click)="saveCustomer()">
+        <button type="submit" form="customer-form" class="btn btn-success">
           <i class="fas fa-check me-2"></i>Salva
-        </a>
+        </button>
         <a routerLink="" class="btn btn-danger ms-2">
           <i class="fas fa-right-from-bracket me-2"></i>Annulla
         </a>
@@ -37,22 +37,20 @@
     <div class="card shadow-sm">
 
       <div class="card-body">
-        <form (ngSubmit)="saveCustomer()">
+        <form id="customer-form" (ngSubmit)="saveCustomer()">
           <div class="row">
             <div class="col text-center">
-              <div *ngIf="isEditMode && customer.image" class="mb-3">
-                <img [src]="customerService.storageUrl + customer.image" class="rounded" width="150" />
-                <label for="image" class="form-label" *ngIf="isEditMode">Aggiorna immagine cliente</label>
-              </div>
-              <div *ngIf="!isEditMode || !customer.image" class="mb-3">
-                <img src="placeholder-user.png" class="rounded" width="150" />
-                <label for="image" class="form-label" *ngIf="!isEditMode">Carica immagine cliente</label>
-              </div>
-              
+              <img *ngIf="isEditMode && customer.image" [src]="customerService.storageUrl + customer.image"
+                class="rounded" width="150" />
+              <img *ngIf="!isEditMode || !customer.image" src="placeholder-user.png" class="rounded" width="150" />
             </div>
-          </div>
-          <div class="mb-3">
-            <input class="form-control" type="file" id="image" (change)="onFileSelected($event)" />
+            <div class="col d-flex flex-column justify-content-center">
+              <div class="mb-3">
+                <label for="image" class="form-label" *ngIf="isEditMode">Aggiorna immagine cliente</label>
+                <label for="image" class="form-label" *ngIf="!isEditMode">Carica immagine cliente</label>
+                <input class="form-control" type="file" id="image" (change)="onFileSelected($event)" />
+              </div>
+            </div>
           </div>
           <hr />
           <div class="mb-3">
@@ -69,8 +67,15 @@
               required />
           </div>
           <hr />
-          <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-          <a [routerLink]="''" class="btn btn-secondary ms-2">Annulla</a>
+          <div class="card-footer bg-transparent border-0 pt-2 text-end">
+            
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-check me-2"></i>Salva
+            </button>
+            <a routerLink="" class="btn btn-danger ms-2">
+              <i class="fas fa-right-from-bracket me-2"></i>Annulla
+            </a>
+          </div>
         </form>
       </div>
     </div>
