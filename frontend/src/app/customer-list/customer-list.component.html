@@ -29,6 +29,7 @@
         @if (customerList.length > 0) {
           <tbody>
             <tr *ngFor="let c of customerList" (click)="showCustomerDetail(c)" class="table-light align-middle"
+            title="Dettaglio cliente"
             style="cursor: pointer;">
             <td>
               <img [src]="customerService.storageUrl + c.image" class="rounded-circle me-3" alt="{{ c.name }}" width="50" height="50" />

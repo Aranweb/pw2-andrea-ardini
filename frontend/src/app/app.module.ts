@@ -16,7 +16,7 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
     CustomerListComponent,
     CustomerDetailComponent,
     OrderListComponent,
-    CustomerEditComponent
+    CustomerEditComponent,
   ],
   imports: [
     BrowserModule,

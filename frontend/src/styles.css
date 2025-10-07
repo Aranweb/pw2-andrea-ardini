@@ -7,3 +7,25 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* Rendo l'animazione di hover sull'icona fluida */
+.icon-wrapper i {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Ingrandisco l'icona quando si passa sopra il suo wrapper */
+.icon-wrapper:hover i {
+  transform: scale(1.5);
+}
+
+/* Stile per il contenitore cliccabile dell'icona */
+.icon-wrapper {
+  display: inline-block;
+  padding: 10px; /* Spazio cliccabile extra */
+  border-radius: 30%;
+  cursor: pointer;
+}
+
+/* Sfondo che appare al passaggio del mouse per mostrare l'area cliccabile */
+.icon-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.795);
+}
