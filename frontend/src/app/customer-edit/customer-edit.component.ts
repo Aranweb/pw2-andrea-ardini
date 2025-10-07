@@ -35,7 +35,7 @@ export class CustomerEditComponent {
   }
 
   saveCustomer(): void {
-    // Usiamo FormData per inviare sia dati che file
+    // Utilizzo FormData per inviare sia dati che file
     const formData = new FormData();
     formData.append('name', this.customer.name);
     formData.append('email', this.customer.email);

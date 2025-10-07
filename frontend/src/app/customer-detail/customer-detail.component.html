@@ -1,5 +1,82 @@
-<div *ngIf="customer" class="container mt-4">
+<div *ngIf="customer" class="container">
+  <div class="sticky-top bg-white pt-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a routerLink="/" class="text-decoration-none text-success-emphasis fs-2">CLIENTI</a>
+          </li>
+          <li class="breadcrumb-item active text-success fs-2" aria-current="page">
+            Dettaglio
+          </li>
+        </ol>
+      </nav>
+      <div>
+        <a routerLink="/" class="btn btn-danger">
+          <i class="fas fa-right-from-bracket me-2"></i>Esci
+        </a>
+      </div>
+    </div>
+    
+    <section class="mt-4">
+      <h2 class="h4 bg-success text-white text-center p-2 rounded-top mb-0">
+        ANAGRAFICA
+      </h2>
+      
+      <div class="card shadow-sm rounded-top-0">
+        <div class="card-body d-flex align-items-center">
+          <img *ngIf="customer.image" [src]="imgUrl + customer.image" class="rounded-circle me-4" alt="{{customer.name}}" width="150" height="150">
+          <div>
+            <h1 class="card-title">{{ customer.name }}</h1>
+            <p class="card-text text-muted fs-5">{{ customer.email }}</p>
+            <p class="card-text">{{ customer.address }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mt-4">
+      <h2 class="h4 bg-success text-white text-center p-2 rounded-top mb-0">
+        ORDINI IN CARICO
+      </h2>
+      
+    </section>
+  </div>
+  <app-order-list [orders]="customer.orders"></app-order-list>
+  
+</div>
 
+<!-- <div *ngIf="customer" class="container">
+  <div class="sticky-top">
+
+    <div class="d-flex bg-white justify-content-between align-items-center">
+      <nav style="--bs-breadcrumb-divider: '-';" aria-label="breadcrumb">
+        <ol class="breadcrumb text-success">
+          <li class="breadcrumb-item active text-success fs-1" aria-current="page">
+            CLIENTI
+          </li>
+          <li class="breadcrumb-item active text-success fs-1" aria-current="page">
+            Dettaglio
+          </li>
+        </ol>
+    </nav>
+    <div>
+       <a routerLink="" class="btn btn-success " (click)="saveCustomer()">
+        <i class="fas fa-check me-2"></i>Salva
+      </a>
+      <a routerLink="" class="btn btn-danger ms-2">
+        <i class="fas fa-right-from-bracket me-2"></i>Esci
+      </a>
+    </div>
+  </div>
+  <table class="table table-success">
+    <thead>
+      <tr>
+        <th class="text-success text-center">ANAGRAFICA</th>
+      </tr>
+    </thead>
+  </table>
+  
   <div class="card shadow-sm">
     <div class="card-body d-flex align-items-center">
       <img [src]="imgUrl + customer.image" class="rounded-circle me-4" alt="{{customer.name}}" width="150" height="150">
@@ -10,17 +87,17 @@
       </div>
     </div>
   </div>
-
-  <div class="mt-5">
-    <h2>Ordini Effettuati</h2>
+  
+  <table class="table table-success mt-2">
+    <thead>
+      <tr>
+        <th class="text-success text-center">ORDINI IN CARICO</th>
+      </tr>
+    </thead>
+  </table>
+</div>
     
     <app-order-list [orders]="customer.orders"></app-order-list>
-
-  </div>
-
-  <div class="text-center mt-4">
-    <button (click)="goBackToList()" class="btn btn-outline-secondary">
-        <i class="fas fa-arrow-left me-2"></i>Torna all'elenco clienti
-    </button>
-  </div>
-</div>
+    
+  
+</div> -->

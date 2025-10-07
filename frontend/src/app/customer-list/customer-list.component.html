@@ -1,63 +1,64 @@
-@if (customerList.length > 0) {
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-11">
-      <h1 class="display-6 text-success">CLIENTI</h1>
+<div class="container">
+  <div class="sticky-top bg-white pt-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item active text-success fs-2" aria-current="page">
+              CLIENTI
+            </li>
+
+        </ol>
+      </nav>
+      <div>
+        <a class="btn btn-success " (click)="newCustomer()">
+          <i class="fas fa-plus me-2"></i>Nuovo
+        </a>
+      </div>
     </div>
-    <div class="col-1">
-      <button class="btn btn-success" type="button" id="button-search" (click)="newCustomer()">
-        Nuovo
-      </button>
-    </div>
+    <section class="mt-4 rounded-top bg-success pt-1">
+      <table class="table table-hover">
+        <thead class="rounded-top">
+          <tr>
+            <th class="col-1 bg-success text-white">Foto<i class="fas fa-images ms-2 text-white"></i></th>
+            <th class="col-1 bg-success text-white">ID<i class="fas fa-id-badge ms-2 text-white"></i></th>
+            <th class="col-4 bg-success text-white">Nome<i class="fas fa-signature ms-2 text-white"></i></th>
+            <th class="col-4 bg-success text-white">E-mail<i class="fas fa-envelope ms-2 text-white"></i></th>
+            <th class="col-2 bg-success text-white text-end">Azioni<i class="fas fa-pen-to-square ms-2 text-white"></i></th>
+          </tr>
+        </thead>
+        @if (customerList.length > 0) {
+          <tbody>
+            <tr *ngFor="let c of customerList" (click)="showCustomerDetail(c)" class="table-light align-middle"
+            style="cursor: pointer;">
+            <td>
+              <img [src]="imgUrl + c.image" class="rounded-circle me-3" alt="{{ c.name }}" width="50" height="50" />
+            </td>
+            <td>
+              {{ c.id }}
+            </td>
+            <td>
+              <strong>
+                {{ c.name }}
+              </strong>
+            </td>
+            <td>
+              <p class="mb-1">
+                {{ c.email }}
+              </p>
+            </td>
+            <td class="text-end">
+              <span class="icon-wrapper" (click)="editCustomer(c, $event)" title="Modifica cliente">
+                <i class="fas fa-pen text-primary-emphasis"></i>
+              </span>
+              <span class="icon-wrapper" (click)="deleteCustomer(c, $event)" title="Elimina cliente">
+                <i class="fas fa-trash-can text-danger"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      } @else {
+        <div class="message message-alert">Clienti non disponibili</div>
+      }
+    </table>
+  </section>
   </div>
-  <!-- <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Ricerca cliente" aria-label="Ricerca film per titolo"
-      aria-describedby="button-search" />
-    <button class="btn btn-success" type="button" id="button-search">
-      Cerca
-    </button>
-  </div> -->
-  <table class="table table-success table-hover">
-    <thead>
-      <tr>
-        <th calss="col-1"><i class="fas fa-images text-secondary-emphasis"></i></th>
-        <th calss="col-1"><i class="fas fa-id-badge me-2 text-secondary-emphasis"></i>ID</th>
-        <th class="col-4"><i class="fas fa-signature me-2 text-secondary-emphasis"></i>Nome</th>
-        <th class="col-4"><i class="fas fa-envelope me-2 text-secondary-emphasis"></i>E-mail</th>
-        <th class="col-2"><i class="fas fa-pen-to-square me-2 text-secondary-emphasis"></i>Azioni</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let c of customerList" (click)="showCustomerDetail(c)" class=" table-light align-middle"
-        style="cursor: pointer;">
-        <td>
-          <img [src]="imgUrl + c.image" class="rounded-circle me-3" alt="{{ c.name }}" width="50" height="50" />
-        </td>
-        <td>
-          {{ c.id }}
-        </td>
-        <td>
-          <strong>
-            {{ c.name }}
-          </strong>
-        </td>
-        <td>
-          <p class="mb-1">
-            {{ c.email }}
-          </p>
-        </td>
-        <td class="text-center">
-          <span class="icon-wrapper" (click)="editCustomer(c, $event)" title="Modifica cliente">
-            <i class="fas fa-pen text-primary-emphasis"></i>
-          </span>
-          <span class="icon-wrapper" (click)="deleteCustomer(c, $event)" title="Elimina cliente">
-            <i class="fas fa-trash-can text-danger"></i>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-} @else {
-<div class="message message-alert">Clienti non disponibili</div>
-}

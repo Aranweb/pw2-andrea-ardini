@@ -1,9 +1,9 @@
-/* Rende l'animazione di hover sull'icona fluida */
+/* Rendo l'animazione di hover sull'icona fluida */
 .icon-wrapper i {
   transition: transform 0.2s ease-in-out;
 }
 
-/* Ingrandisce l'icona quando si passa sopra il suo wrapper */
+/* Ingrandisco l'icona quando si passa sopra il suo wrapper */
 .icon-wrapper:hover i {
   transform: scale(1.5);
 }

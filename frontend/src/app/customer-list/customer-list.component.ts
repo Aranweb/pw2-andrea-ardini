@@ -50,16 +50,14 @@ export class CustomerListComponent implements OnInit {
     this.router.navigate(['/customers/edit', customer.id]);
   }
 
-  // Nuovo metodo per la CANCELLAZIONE
+  // Metodo per la cancellazione
   deleteCustomer(customer: Customer, event: MouseEvent): void {
-    // FONDAMENTALE: ferma la propagazione
+    // Fermo la propagazione
     event.stopPropagation();
 
-    // Chiedi conferma prima di procedere
+    // Chiedo conferma prima di procedere
     if (confirm(`Sei sicuro di voler eliminare ${customer.name}?`)) {
-      // Qui chiamerai il tuo servizio per eliminare il cliente dal database
       this.customerService.deleteCustomer(customer.id).subscribe(() => {
-      // Dopo l'eliminazione, aggiorna la lista per riflettere il cambiamento
       this.customerList = this.customerList.filter(c => c.id !== customer.id);
       });
     }

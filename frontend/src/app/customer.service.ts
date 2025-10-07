@@ -29,11 +29,11 @@ export class CustomerService {
   }
 
   updateCustomer(id: number, formData: FormData): Observable<Customer> {
-    // Usiamo il nuovo URL con POST per gestire l'upload del file
+    // Utilizzo il metodo POST per gestire l'upload del file
     return this.http.post<Customer>(`${this.apiUrl}/customers/${id}`, formData);
   }
 
-  // Metodo per CREARE un nuovo cliente (richiesta POST)
+  // Metodo per creare un nuovo cliente (richiesta POST)
   createCustomer(formData: FormData): Observable<Customer> {
     return this.http.post<Customer>(`${this.apiUrl}/customers`, formData);
   }

@@ -30,8 +30,4 @@ export class CustomerDetailComponent implements OnInit {
       });
     }
   }
-
-  goBackToList(): void {
-    this.router.back();
-  }
 }

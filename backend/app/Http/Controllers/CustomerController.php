@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -60,10 +61,14 @@ class CustomerController extends Controller
             'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        // Gestione del file immagine se presente
         if ($request->hasFile('image')) {
-            // Qui dovresti anche cancellare la vecchia immagine se esiste
-            // Storage::disk('public')->delete($customer->image);
+            // Elimino l'immagine precedente se esiste
+            if ($customer->image) {
+                Storage::disk('public')->delete($customer->image);
+            }
 
+            // Salvo la nuova immagine
             $path = $request->file('image')->store('customers', 'public');
             $validated['image'] = $path;
         }
