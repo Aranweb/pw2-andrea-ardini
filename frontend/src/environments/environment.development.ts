@@ -1,5 +1,9 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8080/api',
-    storageUrl: 'http://localhost:8080/storage/'
+    // Indirizzi per utilizzare php artisan serve
+    apiUrl: 'http://localhost:8000/api',
+    storageUrl: 'http://localhost:8000/storage/'
+    // Indirizzi per puntare a XAMPP
+    // apiUrl: 'http://localhost/pw2-andrea-ardini/backend/public/api',
+    // storageUrl: 'http://localhost/pw2-andrea-ardini/backend/public/storage/'
 };
